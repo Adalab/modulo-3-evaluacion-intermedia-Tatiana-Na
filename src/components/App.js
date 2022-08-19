@@ -12,9 +12,14 @@ const [newInfo, setNewInfo] = useState(
     character: " ",
   }
 );
+const [filter, setFilter] = useState('');
 
-
-const allInfo = data.map((info) => {
+const allInfo = data
+.filter ((info) => {
+  return info.quote.toLowerCase().includes(filter.toLowerCase())
+ 
+})
+.map((info) => {
   return (
 <li className="phrase_card">
             <p>
@@ -45,6 +50,10 @@ setNewInfo(
 }
 )};
 
+const handleFilter = (ev) => {
+  setFilter(ev.target.value)
+}
+
 
 
 
@@ -53,7 +62,7 @@ setNewInfo(
   <h2>Frases de Friends</h2>
   {allInfo}
   <form>
-  <label for="new_phrase" className="text-fill">Frase</label>
+  <label htmlFor="new_phrase" className="text-fill">Frase</label>
           <input
             className="new"
             type="text"
@@ -64,7 +73,7 @@ setNewInfo(
             
 
           />
-          <label for="new_character" className="text-fill">Personaje</label>
+          <label htmlFor="new_character" className="text-fill">Personaje</label>
           <input
             className="new"
             type="text"
@@ -75,6 +84,30 @@ setNewInfo(
        
           />
           <input className="new_phrase_btn" type="button" value="Añadir la nueva frase" onClick={handleClick} />
+        </form>
+
+        <form>
+  <label htmlFor="new_filter_quote" className="filter_quote">Filtrar por frase</label>
+          <input
+            className="filter_what"
+            type="text"
+            name="phrase"
+            id="quote"
+            value = {filter}
+            onChange = {handleFilter}
+            
+
+          />
+          <label htmlFor="new_filter_character" className="filter_character">Filtrar por personaje</label>
+          <input
+            className="filter_who"
+            type="text"
+            name="character"
+            id="character"
+            value = {filter}
+           
+          />
+          
         </form>
   </>
   );
